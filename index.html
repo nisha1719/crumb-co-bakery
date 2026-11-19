@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7efe5">
+  <title>Crumb & Co. | Bakery Ordering Demo</title>
+  <style>
+    :root{--cream:#fbf7f0;--paper:#fffdf9;--ink:#2f241e;--muted:#786b61;--brown:#6f4630;--dark:#4b2e20;--peach:#efd2bd;--sage:#dce5d4;--line:#eadfd3;--shadow:0 16px 40px rgba(73,48,31,.09);--green:#58724f;--red:#9b483c}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}.topbar{padding:9px 16px;text-align:center;background:var(--dark);color:#fff7ee;font-size:11px;letter-spacing:.09em}.nav{max-width:1220px;margin:auto;min-height:76px;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}header{position:sticky;top:0;z-index:15;background:rgba(251,247,240,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:10px;font:700 25px Georgia,serif;white-space:nowrap}.brand-mark{width:39px;height:39px;border-radius:50%;display:grid;place-items:center;background:var(--peach);color:var(--dark);font-size:21px}.nav-links,.nav-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.nav-links{gap:22px;color:var(--muted);font-size:13px}.nav-links a:hover{color:var(--brown)}.btn,.btn-light,.btn-outline,.small-btn{border:0;border-radius:999px;padding:11px 16px;font-weight:700}.btn{background:var(--brown);color:white}.btn:hover{background:var(--dark)}.btn-light{background:#f2e6da;color:var(--dark)}.btn-outline{background:transparent;border:1px solid var(--line);color:var(--dark)}.small-btn{padding:8px 12px;font-size:12px;background:#f2e6da;color:var(--dark)}.btn:disabled{opacity:.45;cursor:not-allowed}.cart-btn{border:1px solid var(--line);border-radius:999px;background:var(--paper);padding:10px 14px;font-weight:700}.cart-count{display:inline-grid;place-items:center;margin-left:4px;width:21px;height:21px;border-radius:50%;background:var(--brown);color:white;font-size:11px}.signed-in{font-size:12px;color:var(--green);font-weight:700}
+    .hero{max-width:1220px;margin:26px auto 0;padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:42px;align-items:center}.eyebrow{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--brown)}h1,h2,h3,p{margin-top:0}h1{font:700 clamp(44px,6vw,72px)/.98 Georgia,serif;letter-spacing:-2.4px;margin:15px 0 18px}h1 em{color:var(--brown);font-weight:500}.hero-copy{max-width:510px;color:var(--muted);font-size:16px;line-height:1.75}.hero-buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.hero-note{font-size:12px;color:var(--muted);margin-top:22px}.hero-art{min-height:420px;border-radius:28px;background:linear-gradient(180deg,rgba(39,25,17,.02),rgba(39,25,17,.18)),url('https://images.pexels.com/photos/27969779/pexels-photo-27969779.jpeg?cs=srgb&dl=pexels-valeriya-27969779.jpg&fm=jpg') center/cover;box-shadow:var(--shadow);position:relative;overflow:hidden}.art-label{position:absolute;bottom:20px;left:20px;background:rgba(255,253,249,.95);padding:12px 16px;border-radius:12px;font:italic 16px Georgia,serif}.section{max-width:1220px;margin:auto;padding:42px 24px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap}h2{font:700 clamp(28px,4vw,42px)/1.05 Georgia,serif;letter-spacing:-1px;margin:8px 0 0}.section-sub{font-size:14px;line-height:1.6;color:var(--muted);margin:9px 0 0}.filters{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 24px}.filter{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:9px 15px;font-size:13px}.filter.active,.filter:hover{background:var(--brown);border-color:var(--brown);color:#fff}.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.product{background:var(--paper);border:1px solid var(--line);border-radius:19px;overflow:hidden;transition:.2s}.product:hover{transform:translateY(-3px);box-shadow:var(--shadow)}.product-visual{height:205px;position:relative;overflow:hidden;background:#eee2d5}.product-visual img{width:100%;height:100%;object-fit:cover;display:block}.tag{position:absolute;top:12px;left:12px;background:rgba(255,253,249,.9);color:var(--brown);padding:6px 9px;border-radius:99px;font-size:10px;font-weight:800;text-transform:uppercase}.product-info{padding:16px}.product-top{display:flex;justify-content:space-between;gap:9px;align-items:start}.product h3{font:700 18px Georgia,serif;margin:0;line-height:1.2}.price{font-weight:800;color:var(--brown);white-space:nowrap}.product p{color:var(--muted);font-size:12px;line-height:1.55;min-height:37px;margin:8px 0 13px}.add-btn{width:100%;border:1px solid var(--line);background:#f8f0e8;color:var(--dark);border-radius:11px;padding:10px;font-weight:700}.add-btn:hover{background:var(--brown);color:white}.story{display:grid;grid-template-columns:.9fr 1.1fr;gap:35px;align-items:center;background:var(--sage);border-radius:26px;padding:30px}.story-art{min-height:280px;border-radius:18px;background:url('https://images.pexels.com/photos/7693924/pexels-photo-7693924.jpeg?cs=srgb&dl=pexels-marta-dzedyshko-1042863-7693924.jpg&fm=jpg') center/cover}.story p{color:#586151;line-height:1.7;font-size:14px}.info-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}.info-card,.panel,.stat-card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px}.info-card strong{display:block;font:700 17px Georgia,serif;margin:7px 0}.info-card span{font-size:12px;color:var(--muted);line-height:1.5}
+    .overlay{position:fixed;inset:0;z-index:50;background:rgba(35,25,19,.52);display:none;justify-content:flex-end}.overlay.open{display:flex}.drawer{width:min(520px,100%);height:100%;overflow:auto;background:var(--paper);padding:24px;box-shadow:-15px 0 50px rgba(0,0,0,.12)}.modal-wrap{position:fixed;inset:0;z-index:60;background:rgba(35,25,19,.55);display:none;align-items:center;justify-content:center;padding:16px}.modal-wrap.open{display:flex}.modal{width:min(540px,100%);max-height:92vh;overflow:auto;background:var(--paper);border-radius:20px;padding:24px;box-shadow:var(--shadow)}.drawer-head,.modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:17px}.drawer-head h2,.modal-head h2{font-size:25px;margin:0}.close{border:0;background:#f2e8df;width:34px;height:34px;border-radius:50%;font-size:20px;color:var(--brown)}.field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}.field label{font-size:11px;color:var(--muted);font-weight:800;letter-spacing:.04em}.field input,.field select,.field textarea,input,select,textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}textarea{min-height:70px;resize:vertical}.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.notice{background:#f4eadf;color:var(--dark);border-radius:11px;padding:11px 13px;font-size:12px;line-height:1.5;margin:12px 0}.error{background:#f9e6e1;color:#8d382e;border-radius:9px;padding:10px;font-size:12px;margin:10px 0}.demo-credentials{font-size:12px;line-height:1.7;background:#f6f0e9;border:1px dashed #d7c4b2;padding:12px;border-radius:11px;margin-top:14px}.role-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:17px}.role-tab{padding:10px 6px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--muted);font-size:12px;font-weight:800}.role-tab.active{background:var(--brown);color:white;border-color:var(--brown)}.link-button{border:0;background:transparent;color:var(--brown);font-weight:800;text-decoration:underline;padding:6px 0}.cart-line{display:flex;gap:11px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.cart-thumb{width:55px;height:55px;object-fit:cover;border-radius:12px}.cart-main{flex:1;min-width:0}.cart-main strong{display:block;font:700 15px Georgia,serif}.cart-main small{display:block;color:var(--muted);font-size:11px;line-height:1.45}.qty{display:flex;align-items:center;gap:7px}.qty button{width:25px;height:25px;border:1px solid var(--line);border-radius:50%;background:#fff}.total-row{display:flex;justify-content:space-between;font-weight:800;padding:16px 0;font-size:17px}.topping-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}.topping-option{font-size:12px;border:1px solid var(--line);border-radius:10px;padding:9px;background:white}.topping-option input{width:auto;margin-right:5px}
+    .portal{display:none;max-width:1220px;margin:auto;padding:34px 24px 60px}.portal.show{display:block}.portal-title{display:flex;align-items:start;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:22px}.portal-title h2{margin:7px 0}.portal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}.stat-card span{display:block;font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em}.stat-card strong{display:block;font:700 27px Georgia,serif;margin-top:7px;color:var(--brown)}.dashboard-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.panel h3{font:700 19px Georgia,serif;margin:0 0 12px}.panel p{font-size:13px;color:var(--muted);line-height:1.6}.order-list{display:grid;gap:12px}.order-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}.order-card-head{display:flex;justify-content:space-between;gap:10px;align-items:start;flex-wrap:wrap}.order-ref{font-weight:850;color:var(--brown)}.status-pill{display:inline-block;padding:5px 9px;border-radius:99px;background:#e8efdf;color:#4d6543;font-size:10px;font-weight:800}.order-meta{font-size:12px;color:var(--muted);line-height:1.6;margin:8px 0}.order-items{font-size:12px;line-height:1.6;background:#fbf7f0;padding:10px;border-radius:9px;margin:8px 0}.order-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.order-actions select{max-width:190px;padding:8px;font-size:12px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:13px;background:white}table{width:100%;border-collapse:collapse;min-width:600px;font-size:12px}th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#f4ebe2;color:var(--dark);font-size:10px;text-transform:uppercase;letter-spacing:.05em}tr:last-child td{border-bottom:0}.roster-list{display:grid;gap:8px}.roster-item{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:10px;background:white;font-size:12px}.empty{padding:22px;text-align:center;color:var(--muted);background:#fff;border:1px dashed var(--line);border-radius:12px;font-size:13px}.footer{background:var(--dark);color:#fff4e9;padding:30px 24px;margin-top:40px}.footer-inner{max-width:1220px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}.footer p{font-size:12px;color:#d7c3b3;margin:5px 0}.footer-links{display:flex;gap:12px;flex-wrap:wrap;font-size:12px}.toast{position:fixed;z-index:90;left:50%;bottom:20px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--dark);color:white;padding:12px 18px;border-radius:999px;font-size:13px;transition:.2s;max-width:calc(100% - 30px);text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}.muted{color:var(--muted)}.hidden{display:none!important}
+    @media(max-width:900px){.products{grid-template-columns:repeat(2,minmax(0,1fr))}.portal-grid{grid-template-columns:repeat(2,1fr)}.hero{gap:22px}.nav{justify-content:center}.dashboard-grid{grid-template-columns:1fr}}
+    @media(max-width:650px){.nav{padding:12px 14px}.nav-links{display:none}.nav-actions{justify-content:center}.hero{grid-template-columns:1fr;padding:25px 18px}.hero-art{min-height:270px}.section{padding:30px 18px}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product-visual{height:145px}.product-info{padding:12px}.product h3{font-size:15px}.story{grid-template-columns:1fr;padding:18px}.story-art{min-height:210px}.info-cards{grid-template-columns:1fr}.portal{padding:26px 16px 45px}.field-row{grid-template-columns:1fr}.role-tabs{gap:4px}.role-tab{font-size:11px}.modal{padding:18px}}
+    @media(max-width:390px){.products{grid-template-columns:1fr}.portal-grid{grid-template-columns:1fr 1fr}.brand{font-size:22px}}
+  </style>
+</head>
+<body>
+  <div class="topbar">FRESHLY BAKED DAILY · LOCAL PICK-UP AVAILABLE · MADE WITH LOVE</div>
+  <header>
+    <nav class="nav">
+      <a href="#home" class="brand"><span class="brand-mark">🥐</span> crumb & co.</a>
+      <div class="nav-links"><a href="#menu">Our Menu</a><a href="#story">Our Story</a><a href="#track">Track Order</a></div>
+      <div class="nav-actions">
+        <span class="signed-in" id="signedInLabel"></span>
+        <button class="btn-light" onclick="openAuth('customer')">Customer login</button>
+        <button class="btn-outline" onclick="openAuth('staff')">Staff login</button>
+        <button class="btn-outline" onclick="openAuth('admin')">Admin login</button>
+        <button class="cart-btn" onclick="openCart()">Bag <span class="cart-count" id="cartCount">0</span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="customerSite">
+    <section class="hero" id="home">
+      <div><div class="eyebrow">A little joy, baked fresh</div><h1>Good days start with <em>good bread.</em></h1><p class="hero-copy">From golden croissants to our slow-made sourdough, every batch is prepared fresh with simple ingredients and a whole lot of care.</p><div class="hero-buttons"><a class="btn" href="#menu">Explore the menu</a><button class="btn-light" onclick="openAuth('customer')">Sign in to order</button></div><div class="hero-note">✦ Baked fresh every morning &nbsp; ✦ Small-batch goodness</div></div>
+      <div class="hero-art"><div class="art-label">Fresh from our oven, daily.</div></div>
+    </section>
+
+    <section class="section" id="menu">
+      <div class="section-head"><div><div class="eyebrow">Made this morning</div><h2>Our bakery favourites</h2><p class="section-sub">Find your favourite, choose your extras and order for pick-up.</p></div><div class="muted" style="font-size:12px">Prices in AUD · Student demo menu</div></div>
+      <div class="filters" id="filters"><button class="filter active" data-category="All">All items</button><button class="filter" data-category="Pastries">Pastries</button><button class="filter" data-category="Bread">Bread</button><button class="filter" data-category="Cakes">Cakes & sweets</button></div>
+      <div class="products" id="products"></div>
+    </section>
+
+    <section class="section" id="story"><div class="story"><div class="story-art"></div><div><div class="eyebrow">A neighbourhood bakery</div><h2>Small batches. Big heart.</h2><p>Crumb & Co. is a sample bakery concept built around a simple idea: good baking brings people together. We prepare our products in small batches, focus on quality ingredients and make every visit feel warm and welcoming.</p><p>This student prototype demonstrates customer ordering, bakery staff order processing and admin roster/menu management.</p><a class="btn" href="#menu">Find your favourite</a></div></div><div class="info-cards"><div class="info-card">☀️<strong>Fresh every day</strong><span>Small batches and seasonal favourites.</span></div><div class="info-card">📍<strong>Local pick-up</strong><span>Choose a convenient pick-up date and time.</span></div><div class="info-card">💛<strong>Made with care</strong><span>Simple ingredients, careful preparation and friendly service.</span></div></div></section>
+
+    <section class="section" id="track"><div class="section-head"><div><div class="eyebrow">Your order, your way</div><h2>Track an order</h2><p class="section-sub">Enter the reference number from your order confirmation.</p></div></div><div style="max-width:560px;display:flex;gap:9px;flex-wrap:wrap"><input id="trackRef" placeholder="e.g. CC-123456" aria-label="Order reference" style="flex:1;min-width:190px"><button class="btn" onclick="trackOrder()">Check status</button></div><div id="trackResult" aria-live="polite"></div></section>
+  </main>
+
+  <!-- CUSTOMER PORTAL -->
+  <section class="portal" id="customerPortal">
+    <div class="portal-title"><div><div class="eyebrow">Customer account</div><h2>Welcome, <span id="customerNameHeading">Customer</span></h2><p class="section-sub">View your orders and continue shopping at Crumb & Co.</p></div><button class="btn-outline" onclick="logout()">Sign out</button></div>
+    <div class="portal-grid"><div class="stat-card"><span>Your orders</span><strong id="customerOrderCount">0</strong></div><div class="stat-card"><span>In progress</span><strong id="customerActiveCount">0</strong></div></div>
+    <div class="panel"><h3>Your order history</h3><div class="order-list" id="customerOrders"></div></div>
+  </section>
+
+  <!-- STAFF PORTAL -->
+  <section class="portal" id="staffPortal">
+    <div class="portal-title"><div><div class="eyebrow">Staff workspace</div><h2>Bakery order desk</h2><p class="section-sub">Receive new orders, check product details and prepare pick-ups on time.</p></div><button class="btn-outline" onclick="logout()">Sign out</button></div>
+    <div class="portal-grid"><div class="stat-card"><span>All orders</span><strong id="staffAllCount">0</strong></div><div class="stat-card"><span>Received</span><strong id="staffReceivedCount">0</strong></div><div class="stat-card"><span>Preparing</span><strong id="staffPreparingCount">0</strong></div><div class="stat-card"><span>Ready for pickup</span><strong id="staffReadyCount">0</strong></div></div>
+    <div class="panel"><h3>Order queue</h3><p>Each ticket shows customer details, requested products, toppings, notes and pick-up timing.</p><div class="order-list" id="staffOrders"></div></div>
+  </section>
+
+  <!-- ADMIN PORTAL -->
+  <section class="portal" id="adminPortal">
+    <div class="portal-title"><div><div class="eyebrow">Management workspace</div><h2>Admin dashboard</h2><p class="section-sub">Oversee orders, menu availability, prices and staff rosters.</p></div><button class="btn-outline" onclick="logout()">Sign out</button></div>
+    <div class="portal-grid"><div class="stat-card"><span>Total orders</span><strong id="adminOrdersCount">0</strong></div><div class="stat-card"><span>Sales value</span><strong id="adminSalesValue">$0.00</strong></div><div class="stat-card"><span>Active staff</span><strong id="adminStaffCount">0</strong></div><div class="stat-card"><span>Roster shifts</span><strong id="adminRosterCount">0</strong></div></div>
+    <div class="dashboard-grid">
+      <div class="panel"><h3>Manage menu</h3><p>Change a product price or temporarily mark an item unavailable.</p><div class="table-wrap"><table><thead><tr><th>Product</th><th>Price (AUD)</th><th>Availability</th></tr></thead><tbody id="adminMenuRows"></tbody></table></div></div>
+      <div class="panel"><h3>Create staff roster</h3><form id="rosterForm" onsubmit="addRosterShift(event)"><div class="field"><label>STAFF MEMBER</label><select id="rosterStaff" required><option value="">Choose staff member</option></select></div><div class="field"><label>SHIFT DATE</label><input type="date" id="rosterDate" required></div><div class="field-row"><div class="field"><label>START TIME</label><select id="rosterStart" required><option>6:00 am</option><option>7:00 am</option><option>8:00 am</option><option>9:00 am</option><option>10:00 am</option><option>12:00 pm</option></select></div><div class="field"><label>FINISH TIME</label><select id="rosterEnd" required><option>12:00 pm</option><option>1:00 pm</option><option>2:00 pm</option><option>3:00 pm</option><option>4:00 pm</option><option>5:00 pm</option><option>6:00 pm</option></select></div></div><div class="field"><label>ROLE / STATION</label><select id="rosterRole"><option>Front counter</option><option>Barista</option><option>Bakery preparation</option><option>Kitchen</option><option>Shift supervisor</option></select></div><button class="btn" type="submit">Add roster shift</button></form></div>
+      <div class="panel"><h3>Staff roster</h3><div id="rosterList" class="roster-list"></div></div>
+      <div class="panel"><h3>Staff directory</h3><p>Sample team members available for roster planning.</p><div id="staffDirectory" class="roster-list"></div></div>
+    </div>
+    <div class="panel" style="margin-top:15px"><h3>All customer orders</h3><div class="order-list" id="adminOrders"></div><div style="margin-top:12px"><button class="btn-light" onclick="exportOrders()">Export orders CSV</button></div></div>
+  </section>
+
+  <footer class="footer"><div class="footer-inner"><div><div class="brand" style="color:#fff4e9"><span class="brand-mark">🥐</span> crumb & co.</div><p>Freshly baked, shared with love.</p></div><div><strong style="font:18px Georgia,serif">Student demonstration</strong><p>Melbourne, VIC · Sample business details</p></div><div class="footer-links"><a href="#menu">Customer shop</a><a href="#" onclick="openAuth('staff');return false">Staff login</a><a href="#" onclick="openAuth('admin');return false">Admin login</a></div></div></footer>
+
+  <!-- AUTHENTICATION DEMO -->
+  <div class="modal-wrap" id="authModal" onclick="if(event.target===this)closeAuth()"><div class="modal"><div class="modal-head"><div><div class="eyebrow">Crumb & Co. access</div><h2 id="authHeading">Sign in</h2></div><button class="close" onclick="closeAuth()">×</button></div>
+    <div class="role-tabs"><button class="role-tab active" data-role="customer" onclick="switchAuthRole('customer')">Customer</button><button class="role-tab" data-role="staff" onclick="switchAuthRole('staff')">Staff</button><button class="role-tab" data-role="admin" onclick="switchAuthRole('admin')">Admin</button></div>
+    <form id="authForm" onsubmit="login(event)"><div class="field"><label id="authEmailLabel">EMAIL ADDRESS</label><input id="authEmail" type="email" autocomplete="username" required placeholder="you@example.com"></div><div class="field"><label>PASSWORD</label><input id="authPassword" type="password" autocomplete="current-password" required placeholder="Enter password"></div><div class="field hidden" id="customerNameField"><label>YOUR NAME</label><input id="authName" type="text" placeholder="Your full name"></div><p class="error hidden" id="authError"></p><button class="btn" style="width:100%" type="submit" id="authSubmit">Sign in as customer</button></form>
+    <div id="customerRegisterLink" style="margin-top:10px;text-align:center"><button class="link-button" onclick="toggleCustomerRegister()">New customer? Create a demo account</button></div>
+    <div class="demo-credentials" id="demoCredentials"><strong>Teacher demo accounts</strong><br>Customer: customer@crumbco.demo / Customer123!<br>Staff: staff@crumbco.demo / Staff123!<br>Admin: admin@crumbco.demo / Admin123!<br><span class="muted">Demo credentials only. Do not use real passwords or personal data.</span></div>
+  </div></div>
+
+  <!-- CART DRAWER -->
+  <div class="overlay" id="cartOverlay" onclick="if(event.target===this)closeCart()"><aside class="drawer"><div class="drawer-head"><h2>Your bag</h2><button class="close" onclick="closeCart()">×</button></div><div id="cartItems"></div><div class="total-row"><span>Total</span><span id="cartTotal">$0.00</span></div><div id="checkoutArea"></div></aside></div>
+  <!-- PRODUCT CUSTOMISATION -->
+  <div class="modal-wrap" id="customModal" onclick="if(event.target===this)closeCustom()"><div class="modal"><div class="modal-head"><div><div class="eyebrow">Make it yours</div><h2 id="customTitle">Customise your item</h2></div><button class="close" onclick="closeCustom()">×</button></div><p class="section-sub">Choose optional toppings or extras. Staff will see your selections on the order ticket.</p><div class="topping-list" id="toppingOptions"></div><div class="field" style="margin-top:14px"><label>SPECIAL PREPARATION NOTE (OPTIONAL)</label><textarea id="itemNote" placeholder="Example: Please pack separately"></textarea></div><button class="btn" style="width:100%" onclick="confirmAddToCart()">Add customised item to bag</button></div></div>
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+   <script>
+    const SUPABASE_URL = 'https://lscgtgxucbrtllovocou.supabase.co';
+
+const SUPABASE_ANON_KEY = 'sb_publishable_3QH6GALjElAF3cmsU7oOrw_OHLdT0uc';
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+   const PRODUCTS = [
+    {id:'p1',name:'Butter Croissant',category:'Pastries',price:5.50,emoji:'🥐',image:'https://images.pexels.com/photos/15029061/pexels-photo-15029061.jpeg?cs=srgb&dl=pexels-marta-dzedyshko-1042863-15029061.jpg&fm=jpg',tag:'Best seller',desc:'Flaky, buttery layers with a golden finish.'},
+    {id:'p2',name:'Almond Danish',category:'Pastries',price:6.50,emoji:'🥮',image:'https://images.pexels.com/photos/3133200/pexels-photo-3133200.jpeg?cs=srgb&dl=pexels-annelies-brouw-976954-3133200.jpg&fm=jpg',tag:'Fresh today',desc:'A delicate pastry with almond filling.'},
+    {id:'p3',name:'Sourdough Loaf',category:'Bread',price:9.00,emoji:'🍞',image:'https://images.pexels.com/photos/7693924/pexels-photo-7693924.jpeg?cs=srgb&dl=pexels-marta-dzedyshko-1042863-7693924.jpg&fm=jpg',tag:'Slow fermented',desc:'A hearty loaf with a crisp crust and soft centre.'},
+    {id:'p4',name:'Cinnamon Scroll',category:'Pastries',price:5.90,emoji:'🍥',image:'https://images.pexels.com/photos/14981376/pexels-photo-14981376.jpeg?cs=srgb&dl=pexels-michal-kunik-85164219-14981376.jpg&fm=jpg',tag:'Customer favourite',desc:'Soft dough swirled with cinnamon sugar.'},
+    {id:'p5',name:'Chocolate Brownie',category:'Cakes',price:5.00,emoji:'🍫',image:'https://images.pexels.com/photos/33312981/pexels-photo-33312981.jpeg?cs=srgb&dl=pexels-busra-yurt-2148943872-33312981.jpg&fm=jpg',tag:'Rich & fudgy',desc:'A chocolatey square with a soft, fudgy middle.'},
+    {id:'p6',name:'Strawberry Cupcake',category:'Cakes',price:5.50,emoji:'🧁',image:'https://images.pexels.com/photos/7966078/pexels-photo-7966078.jpeg?cs=srgb&dl=pexels-felicity-tai-7966078.jpg&fm=jpg',tag:'Sweet treat',desc:'Vanilla sponge finished with strawberry icing.'},
+    {id:'p7',name:'Baguette',category:'Bread',price:6.00,emoji:'🥖',image:'https://images.pexels.com/photos/1775039/pexels-photo-1775039.jpeg?cs=srgb&dl=pexels-mariana-kurnyk-844465-1775039.jpg&fm=jpg',tag:'Oven fresh',desc:'A classic crusty baguette, baked until golden.'},
+    {id:'p8',name:'Vanilla Slice',category:'Cakes',price:6.20,emoji:'🍰',image:'https://images.pexels.com/photos/19446143/pexels-photo-19446143.jpeg?cs=srgb&dl=pexels-teresa-jang-6930116-19446143.jpg&fm=jpg',tag:'Classic',desc:'Layers of crisp pastry, vanilla custard and icing.'}
+  ];
+  const DEMO_USERS = {
+    staff:{email:'staff@crumbco.demo',password:'Staff123!',name:'Bakery Team',role:'staff'},
+    admin:{email:'admin@crumbco.demo',password:'Admin123!',name:'Bakery Manager',role:'admin'}
+  };
+  const STAFF = ['Ava Martin','Noah Chen','Mia Patel','Oliver Brown'];
+  const TOPPINGS = [
+    {name:'Almond flakes',price:0.80},{name:'Chocolate drizzle',price:0.70},{name:'Strawberry topping',price:0.80},
+    {name:'Vanilla icing',price:0.50},{name:'Extra butter',price:0.50},{name:'Berry jam',price:0.60}
+  ];
+  let cart = [];
+  let customProductId = null;
+  let authRole = 'customer';
+  let registeringCustomer = false;
+  let currentUser = safeRead('crumbco_demo_session', null);
+  let orders = safeRead('crumbco_demo_orders', null);
+  if (!Array.isArray(orders)) {
+    // Bring forward orders created in the earlier Crumb & Co. prototype version.
+    const legacyOrders = safeRead('crumbco_orders', []);
+    orders = Array.isArray(legacyOrders) ? legacyOrders.map(o => ({
+      ref:o.ref, customerName:o.customerName || o.name || 'Customer', email:o.email || '', phone:o.phone || '',
+      date:o.date || '', time:o.time || '', total:Number(o.total || 0), status:o.status || 'Received',
+      created:o.created || new Date().toISOString(), customerEmail:String(o.email || '').toLowerCase(),
+      items:(o.items || []).map(i => ({id:i.id || '', name:i.name || 'Bakery item', quantity:Number(i.quantity || 1),
+        basePrice:Number(i.basePrice ?? i.price ?? i.unitPrice ?? 0), unitPrice:Number(i.unitPrice ?? i.price ?? i.basePrice ?? 0),
+        toppings:Array.isArray(i.toppings) ? i.toppings : [], note:i.note || ''}))
+    })) : [];
+    safeWrite('crumbco_demo_orders', orders);
+  }
+  let customers = safeRead('crumbco_demo_customers', []);
+  let roster = safeRead('crumbco_demo_roster', []);
+  let menuSettings = safeRead('crumbco_demo_menu', {});
+  const money = n => '$' + Number(n || 0).toFixed(2);
+  function safeRead(key,fallback){try{const v=JSON.parse(localStorage.getItem(key));return v===null?fallback:v}catch{return fallback}}
+  function safeWrite(key,value){try{localStorage.setItem(key,JSON.stringify(value));return true}catch{toast('Browser storage is unavailable or full.');return false}}
+  function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+  function productPrice(p){return Number(menuSettings[p.id]?.price ?? p.price)}
+  function isAvailable(p){return menuSettings[p.id]?.available !== false}
+  function allOrders(){return Array.isArray(orders)?orders:[]}
+  function saveOrders(){safeWrite('crumbco_demo_orders',orders)}
+  function renderProducts(category='All'){
+    const list=PRODUCTS.filter(p=>(category==='All'||p.category===category));
+    document.getElementById('products').innerHTML=list.map(p=>`<article class="product"><div class="product-visual"><img src="${p.image}" alt="${escapeHtml(p.name)}" loading="lazy" onerror="this.style.display='none'"><span class="tag">${escapeHtml(p.tag)}</span></div><div class="product-info"><div class="product-top"><h3>${escapeHtml(p.name)}</h3><span class="price">${money(productPrice(p))}</span></div><p>${escapeHtml(p.desc)}</p><button class="add-btn" ${isAvailable(p)?'':'disabled'} onclick="openCustom('${p.id}')">${isAvailable(p)?'＋ Customise & add':'Currently unavailable'}</button></div></article>`).join('');
+  }
+  document.querySelectorAll('.filter').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderProducts(b.dataset.category)}));
+  function openCustom(id){customProductId=id;const p=PRODUCTS.find(x=>x.id===id);document.getElementById('customTitle').textContent=p.name;document.getElementById('itemNote').value='';document.getElementById('toppingOptions').innerHTML=TOPPINGS.map((t,i)=>`<label class="topping-option"><input type="checkbox" value="${i}"> ${escapeHtml(t.name)} <strong>+${money(t.price)}</strong></label>`).join('');document.getElementById('customModal').classList.add('open')}
+  function closeCustom(){document.getElementById('customModal').classList.remove('open')}
+  function confirmAddToCart(){const p=PRODUCTS.find(x=>x.id===customProductId);const selected=[...document.querySelectorAll('#toppingOptions input:checked')].map(x=>TOPPINGS[Number(x.value)]);const note=document.getElementById('itemNote').value.trim();const key=p.id+'|'+selected.map(x=>x.name).join(',')+'|'+note;const found=cart.find(x=>x.key===key);if(found)found.quantity++;else cart.push({key,id:p.id,name:p.name,basePrice:productPrice(p),quantity:1,toppings:selected.map(x=>({name:x.name,price:x.price})),note,image:p.image});closeCustom();updateCart();toast('Customised item added to your bag')}
+  function cartLineTotal(item){return (item.basePrice+item.toppings.reduce((s,t)=>s+t.price,0))*item.quantity}
+  function updateCart(){const count=cart.reduce((s,x)=>s+x.quantity,0);document.getElementById('cartCount').textContent=count;document.getElementById('cartItems').innerHTML=cart.length?cart.map((x,i)=>`<div class="cart-line"><img class="cart-thumb" src="${x.image}" alt=""><div class="cart-main"><strong>${escapeHtml(x.name)}</strong><small>${x.toppings.length?'Extras: '+x.toppings.map(t=>escapeHtml(t.name)).join(', '):'No extra toppings'}${x.note?' · Note: '+escapeHtml(x.note):''}<br>${money(x.basePrice+x.toppings.reduce((s,t)=>s+t.price,0))} each</small></div><div class="qty"><button onclick="changeQty(${i},-1)">−</button><b>${x.quantity}</b><button onclick="changeQty(${i},1)">+</button></div></div>`).join(''):'<div class="empty">Your bag is empty. Add something fresh from the menu.</div>';const total=cart.reduce((s,x)=>s+cartLineTotal(x),0);document.getElementById('cartTotal').textContent=money(total);document.getElementById('checkoutArea').innerHTML=cart.length?checkoutFormHtml():''}
+  function changeQty(i,d){cart[i].quantity+=d;if(cart[i].quantity<=0)cart.splice(i,1);updateCart()}
+  function openCart(){document.getElementById('cartOverlay').classList.add('open');updateCart()}
+  function closeCart(){document.getElementById('cartOverlay').classList.remove('open')}
+  function checkoutFormHtml(){const u=currentUser?.role==='customer'?currentUser:null;return `<div class="notice">Student prototype: no payment is processed. Use fictional contact details during demonstrations.</div>${u?'':`<button class="btn-light" style="width:100%;margin-bottom:12px" onclick="closeCart();openAuth('customer')">Customer sign in / create account to checkout</button>`}<form id="checkoutForm" onsubmit="placeOrder(event)"><div class="field"><label>YOUR NAME</label><input name="name" required maxlength="60" value="${escapeHtml(u?.name||'')}" placeholder="Jamie Taylor"></div><div class="field-row"><div class="field"><label>EMAIL</label><input type="email" name="email" required value="${escapeHtml(u?.email||'')}" placeholder="jamie@example.com"></div><div class="field"><label>PHONE</label><input name="phone" required maxlength="20" placeholder="0400 000 000"></div></div><div class="field-row"><div class="field"><label>PICK-UP DATE</label><input type="date" name="date" required min="${new Date().toISOString().slice(0,10)}"></div><div class="field"><label>PICK-UP TIME</label><select name="time" required><option value="">Choose time</option><option>9:00 am</option><option>10:00 am</option><option>11:00 am</option><option>12:00 pm</option><option>1:00 pm</option><option>2:00 pm</option><option>3:00 pm</option></select></div></div><button class="btn" style="width:100%" type="submit">Place pick-up order</button></form>`}
+  
+async function placeOrder(e) {
+  e.preventDefault();
+
+  if (currentUser?.role !== 'customer') {
+    closeCart();
+    openAuth('customer');
+    showAuthError('Please sign in or create a customer account before placing your order. Your bag will be kept.');
+    return;
+  }
+
+  const f = new FormData(e.target);
+
+  const items = cart.map(x => ({
+    id: x.id,
+    name: x.name,
+    quantity: x.quantity,
+    basePrice: x.basePrice,
+    toppings: x.toppings,
+    note: x.note,
+    unitPrice: x.basePrice + x.toppings.reduce(
+      (s, t) => s + t.price, 0
+    )
+  }));
+
+  const total = items.reduce(
+    (s, x) => s + x.unitPrice * x.quantity, 0
+  );
+
+  const order = {
+    ref: 'CC-' + Math.floor(100000 + Math.random() * 900000),
+    customerName: f.get('name'),
+    email: f.get('email'),
+    phone: f.get('phone'),
+    date: f.get('date'),
+    time: f.get('time'),
+    items,
+    total,
+    status: 'Received',
+    created: new Date().toISOString(),
+    customerEmail: String(currentUser.email).toLowerCase()
+  };
+
+
+  
+ const { error } = await supabaseClient
+  .from('bakery_orders')
+  .insert([
+    {
+      order_ref: order.ref,
+      status: order.status,
+      order_data: order
+    }
+  ]);
+
+if (error) {
+  throw error;
+}
+
+orders.unshift(order);
+saveOrders();
+
+  cart = [];
+  updateCart();
+  closeCart();
+
+  renderCustomerPortal();
+  renderStaffPortal();
+  renderAdminPortal();
+
+  document.getElementById('trackRef').value = order.ref;
+  document.getElementById('trackResult').innerHTML = trackingCard(order);
+
+  document.getElementById('track').scrollIntoView({
+    behavior: 'smooth'
+  });
+
+  toast('Order placed! Reference: ' + order.ref);
+}
+
+  function trackingCard(o){const states=['Received','Confirmed','Preparing','Ready for pickup','Collected'];const idx=states.indexOf(o.status);return `<div class="order-card" style="margin-top:13px"><div class="order-card-head"><strong>${escapeHtml(o.ref)}</strong><span class="status-pill">${escapeHtml(o.status)}</span></div><div class="order-meta">Pick-up: ${escapeHtml(o.date)} at ${escapeHtml(o.time)} · Total ${money(o.total)}</div><div class="order-items">${o.items.map(i=>`${i.quantity} × ${escapeHtml(i.name)}${i.toppings?.length?' — '+i.toppings.map(t=>escapeHtml(t.name)).join(', '):''}${i.note?' · Note: '+escapeHtml(i.note):''}`).join('<br>')}</div><div style="display:flex;gap:5px;margin-top:10px">${states.map((s,i)=>`<span style="height:6px;flex:1;border-radius:10px;background:${i<=idx?'#78916c':'#eee4db'}" title="${s}"></span>`).join('')}</div></div>`}
+  function trackOrder(){const ref=document.getElementById('trackRef').value.trim().toUpperCase();const o=orders.find(x=>x.ref===ref);document.getElementById('trackResult').innerHTML=o?trackingCard(o):'<div class="notice">We could not find that order. Please check your reference number.</div>'}
+  function openAuth(role='customer'){authRole=role;registeringCustomer=false;updateAuthUI();document.getElementById('authError').classList.add('hidden');document.getElementById('authModal').classList.add('open')}
+  function closeAuth(){document.getElementById('authModal').classList.remove('open')}
+  function switchAuthRole(role){authRole=role;registeringCustomer=false;document.getElementById('authError').classList.add('hidden');updateAuthUI()}
+  function toggleCustomerRegister(){registeringCustomer=!registeringCustomer;updateAuthUI()}
+  function updateAuthUI(){document.querySelectorAll('.role-tab').forEach(b=>b.classList.toggle('active',b.dataset.role===authRole));const labels={customer:'Customer',staff:'Staff',admin:'Admin'};document.getElementById('authHeading').textContent=registeringCustomer?'Create customer account':labels[authRole]+' sign in';document.getElementById('authEmailLabel').textContent=authRole==='staff'||authRole==='admin'?'DEMO STAFF EMAIL':'EMAIL ADDRESS';document.getElementById('customerNameField').classList.toggle('hidden',!(authRole==='customer'&&registeringCustomer));document.getElementById('authName').required=authRole==='customer'&&registeringCustomer;document.getElementById('authSubmit').textContent=registeringCustomer?'Create account':'Sign in as '+labels[authRole].toLowerCase();document.getElementById('customerRegisterLink').classList.toggle('hidden',authRole!=='customer');document.getElementById('demoCredentials').classList.toggle('hidden',authRole==='customer'&&registeringCustomer)}
+  function login(e){e.preventDefault();const email=document.getElementById('authEmail').value.trim().toLowerCase();const password=document.getElementById('authPassword').value;let user=null;if(authRole==='customer'){if(registeringCustomer){const name=document.getElementById('authName').value.trim();if(!name){showAuthError('Please enter your name.');return}if(customers.some(c=>c.email===email)){showAuthError('An account with this email already exists.');return}user={email,password,name,role:'customer'};customers.push(user);safeWrite('crumbco_demo_customers',customers)}else{user=customers.find(c=>c.email===email&&c.password===password)||((email==='customer@crumbco.demo'&&password==='Customer123!')?{email,name:'Demo Customer',role:'customer'}:null)}}else{const d=DEMO_USERS[authRole];if(email===d.email&&password===d.password)user={email:d.email,name:d.name,role:d.role}}if(!user){showAuthError('Those details do not match this demo account. Check the demo credentials below.');document.getElementById('authPassword').value='';return}currentUser={email:user.email,name:user.name,role:user.role};safeWrite('crumbco_demo_session',currentUser);closeAuth();showRolePortal();toast('Signed in as '+user.role)}
+  function showAuthError(msg){const el=document.getElementById('authError');el.textContent=msg;el.classList.remove('hidden')}
+  function logout(){currentUser=null;localStorage.removeItem('crumbco_demo_session');document.querySelectorAll('.portal').forEach(x=>x.classList.remove('show'));document.getElementById('customerSite').style.display='block';document.getElementById('signedInLabel').textContent='';toast('You have signed out')}
+  function showRolePortal(){document.querySelectorAll('.portal').forEach(x=>x.classList.remove('show'));document.getElementById('customerSite').style.display=currentUser.role==='customer'?'block':'none';document.getElementById('signedInLabel').textContent=currentUser.name+' · '+currentUser.role; if(currentUser.role==='customer'){renderCustomerPortal();document.getElementById('customerPortal').classList.add('show');document.getElementById('customerPortal').scrollIntoView({behavior:'smooth'})}if(currentUser.role==='staff'){renderStaffPortal();document.getElementById('staffPortal').classList.add('show');document.getElementById('staffPortal').scrollIntoView({behavior:'smooth'})}if(currentUser.role==='admin'){renderAdminPortal();document.getElementById('adminPortal').classList.add('show');document.getElementById('adminPortal').scrollIntoView({behavior:'smooth'})}}
+  function renderCustomerPortal(){if(currentUser?.role!=='customer')return;const mine=orders.filter(o=>o.customerEmail===currentUser.email);document.getElementById('customerNameHeading').textContent=currentUser.name;document.getElementById('customerOrderCount').textContent=mine.length;document.getElementById('customerActiveCount').textContent=mine.filter(o=>!['Collected','Cancelled'].includes(o.status)).length;document.getElementById('customerOrders').innerHTML=mine.length?mine.map(o=>`<div class="order-card"><div class="order-card-head"><span class="order-ref">${escapeHtml(o.ref)}</span><span class="status-pill">${escapeHtml(o.status)}</span></div><div class="order-meta">Pick-up ${escapeHtml(o.date)} at ${escapeHtml(o.time)} · ${money(o.total)}</div><div class="order-items">${o.items.map(i=>`${i.quantity} × ${escapeHtml(i.name)}${i.toppings?.length?' — '+i.toppings.map(t=>escapeHtml(t.name)).join(', '):''}`).join('<br>')}</div></div>`).join(''):'<div class="empty">You have no orders yet. Browse the menu to place your first order.</div>'}
+  function renderStaffPortal(){if(currentUser?.role!=='staff')return;document.getElementById('staffAllCount').textContent=orders.length;document.getElementById('staffReceivedCount').textContent=orders.filter(o=>o.status==='Received').length;document.getElementById('staffPreparingCount').textContent=orders.filter(o=>o.status==='Preparing').length;document.getElementById('staffReadyCount').textContent=orders.filter(o=>o.status==='Ready for pickup').length;document.getElementById('staffOrders').innerHTML=orders.length?orders.map(o=>orderCardHtml(o,true)).join(''):'<div class="empty">No orders have been received yet. Place an order from the customer website first.</div>'}
+  function orderCardHtml(o,allowUpdate){return `<article class="order-card"><div class="order-card-head"><span class="order-ref">${escapeHtml(o.ref)}</span><span class="status-pill">${escapeHtml(o.status)}</span></div><div class="order-meta"><strong>${escapeHtml(o.customerName||o.name||'Customer')}</strong> · ${escapeHtml(o.email||'')} · ${escapeHtml(o.phone||'')}<br>Pick-up: <strong>${escapeHtml(o.date)}</strong> at <strong>${escapeHtml(o.time)}</strong> · Order total: <strong>${money(o.total)}</strong></div><div class="order-items"><strong>Kitchen ticket / items</strong><br>${o.items.map(i=>`• ${i.quantity} × ${escapeHtml(i.name)}${i.toppings?.length?' <strong>| Toppings:</strong> '+i.toppings.map(t=>escapeHtml(t.name)).join(', '):''}${i.note?' <strong>| Customer note:</strong> '+escapeHtml(i.note):''}`).join('<br>')}</div>${allowUpdate?`<div class="order-actions"><label class="muted" for="status-${o.ref}">Update status</label><select id="status-${o.ref}" onchange="updateOrderStatus('${o.ref}',this.value)">${['Received','Confirmed','Preparing','Ready for pickup','Collected','Cancelled'].map(s=>`<option ${o.status===s?'selected':''}>${s}</option>`).join('')}</select><button class="small-btn" onclick="printTicket('${o.ref}')">Print kitchen ticket</button></div>`:''}</article>`}
+  function updateOrderStatus(ref,status){if(currentUser?.role!=='staff'&&currentUser?.role!=='admin')return;const o=orders.find(x=>x.ref===ref);if(o){o.status=status;saveOrders();renderStaffPortal();renderAdminPortal();renderCustomerPortal();toast('Order '+ref+' updated to '+status)}}
+  function printTicket(ref){if(currentUser?.role!=='staff'&&currentUser?.role!=='admin')return;const o=orders.find(x=>x.ref===ref);if(!o)return;const w=window.open('','_blank','width=650,height=700');if(!w){toast('Allow pop-ups to print the kitchen ticket.');return}w.document.write(`<html><head><title>Kitchen ticket ${escapeHtml(o.ref)}</title><style>body{font:16px Arial;padding:25px}h1{font:26px Georgia}li{margin:10px 0}small{color:#555}</style></head><body><h1>Crumb & Co. – Kitchen Ticket</h1><h2>${escapeHtml(o.ref)}</h2><p><strong>Pick-up:</strong> ${escapeHtml(o.date)} at ${escapeHtml(o.time)}</p><p><strong>Customer:</strong> ${escapeHtml(o.customerName||'')}</p><ul>${o.items.map(i=>`<li><strong>${i.quantity} × ${escapeHtml(i.name)}</strong><br><small>Toppings: ${i.toppings?.map(t=>escapeHtml(t.name)).join(', ')||'None'}<br>Note: ${escapeHtml(i.note||'None')}</small></li>`).join('')}</ul><p><strong>Status:</strong> ${escapeHtml(o.status)}</p><script>window.onload=()=>window.print()<\/script></body></html>`);w.document.close()}
+  function renderAdminPortal(){if(currentUser?.role!=='admin')return;document.getElementById('adminOrdersCount').textContent=orders.length;document.getElementById('adminSalesValue').textContent=money(orders.filter(o=>o.status!=='Cancelled').reduce((s,o)=>s+o.total,0));document.getElementById('adminStaffCount').textContent=STAFF.length;document.getElementById('adminRosterCount').textContent=roster.length;document.getElementById('adminMenuRows').innerHTML=PRODUCTS.map(p=>`<tr><td>${escapeHtml(p.name)}</td><td><input aria-label="${escapeHtml(p.name)} price" type="number" min="0" step="0.10" value="${productPrice(p).toFixed(2)}" style="width:90px" onchange="changeProductPrice('${p.id}',this.value)"></td><td><input type="checkbox" aria-label="${escapeHtml(p.name)} availability" ${isAvailable(p)?'checked':''} onchange="changeAvailability('${p.id}',this.checked)"></td></tr>`).join('');document.getElementById('rosterStaff').innerHTML='<option value="">Choose staff member</option>'+STAFF.map(n=>`<option>${escapeHtml(n)}</option>`).join('');document.getElementById('rosterList').innerHTML=roster.length?roster.slice().sort((a,b)=>a.date.localeCompare(b.date)).map((r,i)=>`<div class="roster-item"><span><strong>${escapeHtml(r.staff)}</strong><br>${escapeHtml(r.date)} · ${escapeHtml(r.start)}–${escapeHtml(r.end)}<br><span class="muted">${escapeHtml(r.role)}</span></span><button class="small-btn" onclick="deleteRosterShift(${i})">Remove</button></div>`).join(''):'<div class="empty">No shifts created yet. Add a shift using the roster form.</div>';document.getElementById('staffDirectory').innerHTML=STAFF.map(n=>`<div class="roster-item"><span>${escapeHtml(n)}</span><span class="status-pill">Active demo staff</span></div>`).join('');document.getElementById('adminOrders').innerHTML=orders.length?orders.map(o=>orderCardHtml(o,false)).join(''):'<div class="empty">No customer orders yet.</div>'}
+  function changeProductPrice(id,value){if(currentUser?.role!=='admin')return;const price=Number(value);if(!Number.isFinite(price)||price<0){toast('Enter a valid price.');renderAdminPortal();return}menuSettings[id]=menuSettings[id]||{};menuSettings[id].price=price;safeWrite('crumbco_demo_menu',menuSettings);renderProducts(document.querySelector('.filter.active')?.dataset.category||'All');toast('Menu price updated')}
+  function changeAvailability(id,available){if(currentUser?.role!=='admin')return;menuSettings[id]=menuSettings[id]||{};menuSettings[id].available=available;safeWrite('crumbco_demo_menu',menuSettings);renderProducts(document.querySelector('.filter.active')?.dataset.category||'All');toast('Menu availability updated')}
+  function addRosterShift(e){e.preventDefault();if(currentUser?.role!=='admin')return;const shift={staff:document.getElementById('rosterStaff').value,date:document.getElementById('rosterDate').value,start:document.getElementById('rosterStart').value,end:document.getElementById('rosterEnd').value,role:document.getElementById('rosterRole').value};if(!shift.staff||!shift.date){toast('Choose a staff member and date.');return}roster.push(shift);safeWrite('crumbco_demo_roster',roster);document.getElementById('rosterForm').reset();renderAdminPortal();toast('Roster shift added')}
+  function deleteRosterShift(i){if(currentUser?.role!=='admin')return;roster.splice(i,1);safeWrite('crumbco_demo_roster',roster);renderAdminPortal();toast('Roster shift removed')}
+  function exportOrders(){if(currentUser?.role!=='admin')return;if(!orders.length){toast('No orders to export');return}const rows=[['Reference','Customer','Email','Phone','Items','Total AUD','Pick-up date','Pick-up time','Status'],...orders.map(o=>[o.ref,o.customerName,o.email,o.phone,o.items.map(i=>`${i.quantity} x ${i.name} (${(i.toppings||[]).map(t=>t.name).join('|')})`).join('; '),o.total,o.date,o.time,o.status])];const csv=rows.map(r=>r.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='crumb-co-demo-orders.csv';a.click();URL.revokeObjectURL(a.href)}
+  function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove('show'),2600)}
+  function init(){renderProducts();updateCart();if(currentUser&&['customer','staff','admin'].includes(currentUser.role))showRolePortal();else{currentUser=null;localStorage.removeItem('crumbco_demo_session')}if(location.hash==='#staff')openAuth('staff');if(location.hash==='#admin')openAuth('admin');if(location.hash==='#customer-login')openAuth('customer')}
+  init();
+</script>
+</body>
+</html>

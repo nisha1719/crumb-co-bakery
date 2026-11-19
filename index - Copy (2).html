@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f7efe5" />
+  <title>Crumb & Co. | Freshly Baked, Every Day</title>
+  <style>
+    :root {
+      --cream: #fbf7f0;
+      --paper: #fffdf9;
+      --ink: #2f241e;
+      --muted: #786b61;
+      --brown: #6f4630;
+      --brown-dark: #4b2e20;
+      --peach: #efd2bd;
+      --sage: #dce5d4;
+      --line: #eadfd3;
+      --shadow: 0 16px 40px rgba(73, 48, 31, .09);
+      --radius: 22px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--cream); color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+    .topbar { padding: 9px 20px; text-align: center; background: var(--brown-dark); color: #fff7ee; font-size: 12px; letter-spacing: .08em; }
+    header { position: sticky; top: 0; z-index: 10; background: rgba(251,247,240,.94); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(234,223,211,.8); }
+    .nav { max-width: 1180px; margin: auto; height: 76px; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display:flex; align-items:center; gap: 10px; font-family: Georgia, serif; font-size: 25px; font-weight: 700; letter-spacing: -.7px; white-space: nowrap; }
+    .brand-mark { display:grid; place-items:center; width:39px; height:39px; background:var(--peach); border-radius: 50% 50% 46% 46%; font-size:21px; }
+    .nav-links { display:flex; align-items:center; gap:28px; color:var(--muted); font-size:14px; }
+    .nav-links a:hover { color:var(--brown); }
+    .nav-actions { display:flex; align-items:center; gap:10px; }
+    .btn { border:0; border-radius:999px; background:var(--brown); color:#fffaf5; padding:12px 19px; font-weight:650; transition:.2s ease; }
+    .btn:hover { background:var(--brown-dark); transform:translateY(-1px); }
+    .btn-light { background:#f2e6da; color:var(--brown-dark); }
+    .btn-light:hover { background:#ead8c8; }
+    .cart-btn { position:relative; border:1px solid var(--line); border-radius:999px; background:var(--paper); color:var(--ink); padding:10px 15px; font-weight:650; }
+    .cart-count { display:inline-grid; place-items:center; margin-left:5px; width:21px; height:21px; border-radius:50%; color:white; background:var(--brown); font-size:11px; }
+    .hero { max-width:1180px; margin:30px auto 0; padding:22px 24px 54px; display:grid; grid-template-columns:1.05fr .95fr; align-items:center; gap:44px; }
+    .eyebrow { color:var(--brown); letter-spacing:.17em; text-transform:uppercase; font-size:11px; font-weight:800; }
+    h1,h2,h3,p { margin-top:0; }
+    h1 { margin:15px 0 18px; max-width:590px; font:700 clamp(44px,6vw,72px)/.98 Georgia, serif; letter-spacing:-2.6px; }
+    h1 em { color:var(--brown); font-weight:500; }
+    .hero-copy { color:var(--muted); max-width:480px; font-size:16px; line-height:1.75; }
+    .hero-buttons { display:flex; gap:12px; margin-top:27px; flex-wrap:wrap; }
+    .hero-note { margin-top:27px; color:var(--muted); font-size:12px; }
+    .hero-art { min-height:390px; border-radius: 48% 48% 24px 24px; position:relative; overflow:hidden; background:linear-gradient(145deg,#e8c3a5,#f4dfc9 54%,#d7b091); box-shadow:var(--shadow); display:grid; place-items:center; }
+    .hero-art:before { content:""; position:absolute; width:310px; height:310px; border-radius:50%; background:rgba(255,250,242,.45); top:34px; right:35px; }
+    .hero-art:after { content:""; position:absolute; width:230px; height:230px; border-radius:50%; border:1px solid rgba(94,55,34,.18); bottom:-90px; left:-50px; }
+    .bread-illustration { position:relative; z-index:1; font-size:190px; filter:drop-shadow(0 24px 15px rgba(89,53,30,.23)); transform:rotate(-8deg); }
+    .art-label { position:absolute; z-index:2; bottom:28px; right:25px; background:rgba(255,253,249,.9); padding:13px 17px; border-radius:15px; font:italic 17px Georgia,serif; box-shadow:var(--shadow); }
+    .section { max-width:1180px; margin:auto; padding:42px 24px; }
+    .section-head { display:flex; align-items:end; justify-content:space-between; gap:15px; margin-bottom:24px; }
+    h2 { margin:8px 0 0; font:700 clamp(29px,4vw,42px)/1.05 Georgia,serif; letter-spacing:-1px; }
+    .section-sub { color:var(--muted); font-size:14px; line-height:1.6; margin:10px 0 0; }
+    .filters { display:flex; gap:8px; flex-wrap:wrap; margin:20px 0 24px; }
+    .filter { border:1px solid var(--line); background:transparent; color:var(--muted); border-radius:999px; padding:9px 15px; font-size:13px; }
+    .filter.active,.filter:hover { background:var(--brown); border-color:var(--brown); color:#fff; }
+    .products { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+    .product { background:var(--paper); border:1px solid var(--line); border-radius:19px; overflow:hidden; transition:.2s; }
+    .product:hover { transform:translateY(-4px); box-shadow:var(--shadow); }
+    .product-visual { height:170px; display:grid; place-items:center; background:linear-gradient(140deg,#f2dfcc,#e9cbb0); font-size:75px; position:relative; }
+    .product:nth-child(3n+2) .product-visual { background:linear-gradient(140deg,#e5e9d9,#cbd7bd); }
+    .product:nth-child(3n) .product-visual { background:linear-gradient(140deg,#f3e3d8,#e5bca5); }
+    .tag { position:absolute; top:12px; left:12px; background:rgba(255,253,249,.88); color:var(--brown); padding:6px 9px; border-radius:99px; font-size:10px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; }
+    .product-info { padding:16px; }
+    .product-top { display:flex; justify-content:space-between; gap:10px; align-items:start; }
+    .product h3 { font:700 18px Georgia,serif; margin:0 0 6px; }
+    .price { font-weight:800; color:var(--brown); white-space:nowrap; }
+    .product p { color:var(--muted); font-size:12px; line-height:1.55; min-height:38px; margin:8px 0 14px; }
+    .add-btn { width:100%; border:1px solid var(--line); background:#f8f0e8; color:var(--brown-dark); border-radius:11px; padding:10px; font-weight:700; }
+    .add-btn:hover { background:var(--brown); color:white; border-color:var(--brown); }
+    .story { display:grid; grid-template-columns:.9fr 1.1fr; gap:42px; align-items:center; background:var(--sage); border-radius:28px; padding:35px; }
+    .story-art { min-height:230px; display:grid; place-items:center; background:rgba(255,255,255,.4); border-radius:20px; font-size:110px; }
+    .story p { color:#586151; line-height:1.75; font-size:14px; max-width:540px; }
+    .info-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:15px; margin-top:25px; }
+    .info-card { background:var(--paper); border:1px solid var(--line); border-radius:17px; padding:19px; }
+    .info-card strong { display:block; font:700 17px Georgia,serif; margin:7px 0; }
+    .info-card span { color:var(--muted); font-size:12px; line-height:1.5; }
+    footer { margin-top:40px; padding:34px 24px; background:var(--brown-dark); color:#fff4e9; }
+    .footer-inner { max-width:1180px; margin:auto; display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; align-items:center; }
+    footer p { color:#d7c3b3; font-size:12px; margin:6px 0 0; }
+    .overlay { position:fixed; inset:0; z-index:30; background:rgba(35,25,19,.48); display:none; justify-content:flex-end; }
+    .overlay.open { display:flex; }
+    .drawer { width:min(460px,100%); height:100%; overflow:auto; background:var(--paper); padding:26px; box-shadow:-15px 0 50px rgba(0,0,0,.12); }
+    .drawer-head { display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--line); padding-bottom:16px; margin-bottom:18px; }
+    .drawer-head h2 { font-size:27px; margin:0; }
+    .close { border:0; background:#f2e8df; width:35px; height:35px; border-radius:50%; font-size:20px; color:var(--brown); }
+    .cart-line { display:flex; align-items:center; gap:12px; padding:13px 0; border-bottom:1px solid var(--line); }
+    .cart-emoji { width:53px; height:53px; display:grid; place-items:center; border-radius:13px; background:#f1e1d1; font-size:28px; }
+    .cart-line-main { flex:1; }
+    .cart-line-main strong { display:block; font:700 15px Georgia,serif; }
+    .cart-line-main small { color:var(--muted); }
+    .qty { display:flex; align-items:center; gap:8px; }
+    .qty button { border:1px solid var(--line); background:white; border-radius:50%; width:26px; height:26px; }
+    .total-row { display:flex; justify-content:space-between; font-weight:800; padding:18px 0; font-size:17px; }
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .field { display:flex; flex-direction:column; gap:6px; margin-bottom:13px; }
+    .field.full { grid-column:1/-1; }
+    label { color:var(--muted); font-size:12px; font-weight:700; }
+    input,select,textarea { width:100%; padding:11px 12px; border:1px solid var(--line); border-radius:10px; background:#fff; color:var(--ink); outline:none; }
+    input:focus,select:focus,textarea:focus { border-color:#a77b5e; box-shadow:0 0 0 3px rgba(167,123,94,.12); }
+    textarea { resize:vertical; min-height:75px; }
+    .notice { padding:12px 14px; background:#f4eadf; color:var(--brown-dark); border-radius:12px; font-size:12px; line-height:1.5; margin:14px 0; }
+    .admin-section { display:none; }
+    .admin-section.show { display:block; }
+    .admin-table-wrap { overflow:auto; border:1px solid var(--line); border-radius:15px; background:var(--paper); }
+    table { width:100%; border-collapse:collapse; min-width:690px; font-size:13px; }
+    th,td { text-align:left; padding:13px 14px; border-bottom:1px solid var(--line); }
+    th { background:#f4ebe2; color:var(--brown-dark); font-size:11px; text-transform:uppercase; letter-spacing:.07em; }
+    tr:last-child td { border-bottom:0; }
+    .status { display:inline-block; border-radius:99px; padding:5px 9px; background:#e8efdf; color:#4d6543; font-size:11px; font-weight:800; }
+    .empty { padding:30px 12px; text-align:center; color:var(--muted); font-size:13px; }
+    .tracking-result { border:1px solid var(--line); border-radius:15px; padding:17px; margin-top:14px; background:#fff; }
+    .steps { display:flex; gap:5px; margin-top:14px; }
+    .step { flex:1; height:6px; background:#eee4db; border-radius:99px; }
+    .step.done { background:#78916c; }
+    .toast { position:fixed; z-index:50; left:50%; bottom:22px; transform:translate(-50%,20px); opacity:0; pointer-events:none; background:var(--brown-dark); color:white; padding:12px 18px; border-radius:99px; font-size:13px; box-shadow:var(--shadow); transition:.25s; }
+    .toast.show { opacity:1; transform:translate(-50%,0); }
+    @media(max-width:900px) { .products{grid-template-columns:repeat(2,1fr)} .hero{gap:25px}.nav-links{gap:14px} }
+    @media(max-width:650px) { .nav{height:65px;padding:0 15px}.brand{font-size:21px}.nav-links{display:none}.hero{grid-template-columns:1fr;padding:30px 18px 35px}.hero-art{min-height:260px}.bread-illustration{font-size:140px}.section{padding:30px 18px}.products{grid-template-columns:1fr 1fr;gap:10px}.product-visual{height:130px;font-size:58px}.product-info{padding:12px}.product h3{font-size:16px}.story{grid-template-columns:1fr;padding:20px}.info-cards{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto} }
+    @media(max-width:390px) { .products{grid-template-columns:1fr}.nav-actions .btn-light{display:none} }
+  </style>
+</head>
+<body>
+  <div class="topbar">FRESHLY BAKED DAILY · LOCAL PICK-UP AVAILABLE · MADE WITH LOVE</div>
+  <header>
+    <nav class="nav">
+      <a href="#home" class="brand"><span class="brand-mark">🥐</span> crumb & co.</a>
+      <div class="nav-links"><a href="#menu">Our Menu</a><a href="#story">Our Story</a><a href="#visit">Visit Us</a><a href="#track">Track Order</a></div>
+      <div class="nav-actions"><button class="btn btn-light" onclick="openTrack()">Track order</button><button class="cart-btn" onclick="openCart()">Bag <span class="cart-count" id="cartCount">0</span></button></div>
+    </nav>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">A little joy, baked fresh</div>
+        <h1>Good days start with <em>good bread.</em></h1>
+        <p class="hero-copy">From golden croissants to our slow-made sourdough, every batch is prepared fresh with simple ingredients and a whole lot of care.</p>
+        <div class="hero-buttons"><a class="btn" href="#menu">Explore the menu</a><button class="btn btn-light" onclick="openCart()">Order for pick-up</button></div>
+        <div class="hero-note">✦ Baked fresh every morning &nbsp; ✦ Small-batch goodness</div>
+      </div>
+      <div class="hero-art"><div class="bread-illustration">🥖</div><div class="art-label">Fresh from our oven, daily.</div></div>
+    </section>
+
+    <section class="section" id="menu">
+      <div class="section-head"><div><div class="eyebrow">Made this morning</div><h2>Our bakery favourites</h2><p class="section-sub">A few things we're proud to pull from the oven.</p></div><div style="font-size:12px;color:var(--muted)">Prices in AUD · Sample menu</div></div>
+      <div class="filters" id="filters"><button class="filter active" data-category="All">All items</button><button class="filter" data-category="Pastries">Pastries</button><button class="filter" data-category="Bread">Bread</button><button class="filter" data-category="Cakes">Cakes & sweets</button></div>
+      <div class="products" id="products"></div>
+    </section>
+
+    <section class="section" id="story">
+      <div class="story"><div class="story-art">👩‍🍳</div><div><div class="eyebrow">A neighbourhood bakery</div><h2>Small batches. Big heart.</h2><p>Crumb & Co. is a sample bakery concept built around a simple idea: good baking brings people together. We prepare our products in small batches, focus on quality ingredients and make every visit feel warm and welcoming.</p><p>This website prototype lets customers explore the menu, place a pick-up order and check its progress.</p><a class="btn" href="#menu">Find your favourite</a></div></div>
+      <div class="info-cards" id="visit"><div class="info-card">☀️<strong>Fresh every day</strong><span>Our sample menu is designed around daily baking and seasonal favourites.</span></div><div class="info-card">📍<strong>Local pick-up</strong><span>Choose a convenient pick-up time when placing your order.</span></div><div class="info-card">💛<strong>Made with care</strong><span>Simple ingredients, careful preparation and friendly service.</span></div></div>
+    </section>
+
+    <section class="section" id="track">
+      <div class="section-head"><div><div class="eyebrow">Your order, your way</div><h2>Track an order</h2><p class="section-sub">Enter the reference number you received after checkout.</p></div></div>
+      <div style="max-width:560px;display:flex;gap:9px"><input id="trackRef" placeholder="e.g. CC-123456" aria-label="Order reference"><button class="btn" onclick="trackOrder()">Check status</button></div>
+      <div id="trackResult" aria-live="polite"></div>
+    </section>
+
+    <section class="section admin-section" id="admin">
+      <div class="section-head"><div><div class="eyebrow">Staff workspace</div><h2>Order dashboard</h2><p class="section-sub">Review incoming pick-up orders and update their progress.</p></div><button class="btn btn-light" onclick="exportOrders()">Export CSV</button></div>
+      <div class="admin-table-wrap"><table><thead><tr><th>Reference</th><th>Customer</th><th>Items</th><th>Total</th><th>Pick-up</th><th>Status</th><th>Update</th></tr></thead><tbody id="orderRows"></tbody></table><div class="empty" id="adminEmpty">No orders yet. Place a sample order to see it here.</div></div>
+    </section>
+  </main>
+
+  <footer><div class="footer-inner"><div><div class="brand" style="color:#fff4e9"><span class="brand-mark">🥐</span> crumb & co.</div><p>Freshly baked, shared with love.</p></div><div><strong style="font:18px Georgia,serif">Come say hello</strong><p>Sample business details · Melbourne, VIC</p><p>Opening hours: To be confirmed</p></div><div style="font-size:11px;color:#d7c3b3">© 2026 Crumb & Co. · Student project prototype</div></div></footer>
+
+  <div class="overlay" id="cartOverlay" onclick="overlayClose(event,'cartOverlay')"><aside class="drawer"><div class="drawer-head"><h2>Your bag</h2><button class="close" onclick="closeCart()">×</button></div><div id="cartItems"></div><div class="total-row"><span>Total</span><span id="cartTotal">$0.00</span></div><div id="checkoutArea"></div></aside></div>
+  <div class="overlay" id="trackOverlay" onclick="overlayClose(event,'trackOverlay')"><aside class="drawer"><div class="drawer-head"><h2>Track your order</h2><button class="close" onclick="closeTrack()">×</button></div><p class="section-sub">Enter your order reference number below.</p><div class="field"><label for="trackRefDrawer">ORDER REFERENCE</label><input id="trackRefDrawer" placeholder="e.g. CC-123456"></div><button class="btn" style="width:100%" onclick="trackOrderDrawer()">Check status</button><div id="trackResultDrawer"></div></aside></div>
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // Prototype data. Replace localStorage functions with API calls when connecting AWS.
+    const products = [
+      {id:'p1',name:'Butter Croissant',category:'Pastries',price:5.50,emoji:'🥐',tag:'Best seller',desc:'Flaky, buttery layers with a golden finish.'},
+      {id:'p2',name:'Almond Danish',category:'Pastries',price:6.50,emoji:'🥮',tag:'Fresh today',desc:'A delicate pastry with almond filling.'},
+      {id:'p3',name:'Sourdough Loaf',category:'Bread',price:9.00,emoji:'🍞',tag:'Slow fermented',desc:'A hearty loaf with a crisp crust and soft centre.'},
+      {id:'p4',name:'Cinnamon Scroll',category:'Pastries',price:5.90,emoji:'🍥',tag:'Customer favourite',desc:'Soft dough swirled with cinnamon sugar.'},
+      {id:'p5',name:'Chocolate Brownie',category:'Cakes',price:5.00,emoji:'🍫',tag:'Rich & fudgy',desc:'A chocolatey square with a soft, fudgy middle.'},
+      {id:'p6',name:'Strawberry Cupcake',category:'Cakes',price:5.50,emoji:'🧁',tag:'Sweet treat',desc:'Vanilla sponge finished with strawberry icing.'},
+      {id:'p7',name:'Baguette',category:'Bread',price:6.00,emoji:'🥖',tag:'Oven fresh',desc:'A classic crusty baguette, baked until golden.'},
+      {id:'p8',name:'Vanilla Slice',category:'Cakes',price:6.20,emoji:'🍰',tag:'Classic',desc:'Layers of crisp pastry, vanilla custard and icing.'}
+    ];
+    let cart = {};
+    let orders = JSON.parse(localStorage.getItem('crumbco_orders') || '[]');
+    const money = n => '$' + Number(n).toFixed(2);
+    const saveOrders = () => localStorage.setItem('crumbco_orders', JSON.stringify(orders));
+    function renderProducts(category='All') {
+      document.getElementById('products').innerHTML = products.filter(p=>category==='All'||p.category===category).map(p=>`<article class="product"><div class="product-visual"><span class="tag">${p.tag}</span>${p.emoji}</div><div class="product-info"><div class="product-top"><h3>${p.name}</h3><span class="price">${money(p.price)}</span></div><p>${p.desc}</p><button class="add-btn" onclick="addToCart('${p.id}')">＋ Add to bag</button></div></article>`).join('');
+    }
+    document.querySelectorAll('.filter').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderProducts(b.dataset.category);}));
+    function addToCart(id){cart[id]=(cart[id]||0)+1;updateCart();toast('Added to your bag');}
+    function updateCart(){const count=Object.values(cart).reduce((a,b)=>a+b,0);document.getElementById('cartCount').textContent=count;const lines=Object.entries(cart).filter(([,q])=>q>0).map(([id,q])=>{const p=products.find(x=>x.id===id);return `<div class="cart-line"><div class="cart-emoji">${p.emoji}</div><div class="cart-line-main"><strong>${p.name}</strong><small>${money(p.price)} each</small></div><div class="qty"><button onclick="changeQty('${id}',-1)">−</button><b>${q}</b><button onclick="changeQty('${id}',1)">+</button></div></div>`;}).join('');document.getElementById('cartItems').innerHTML=lines||'<div class="empty">Your bag is empty. Add something fresh from the menu.</div>';const total=Object.entries(cart).reduce((s,[id,q])=>s+products.find(p=>p.id===id).price*q,0);document.getElementById('cartTotal').textContent=money(total);document.getElementById('checkoutArea').innerHTML=count?checkoutForm():'';}
+    function changeQty(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];updateCart();}
+    function checkoutForm(){return `<div class="notice">This is a student project prototype. Checkout does not take payment. Use fictional details when testing.</div><form id="checkoutForm" onsubmit="placeOrder(event)"><div class="field"><label>YOUR NAME</label><input name="name" required maxlength="60" placeholder="Jamie Taylor"></div><div class="form-grid"><div class="field"><label>EMAIL</label><input type="email" name="email" required placeholder="jamie@example.com"></div><div class="field"><label>PHONE</label><input name="phone" required maxlength="20" placeholder="0400 000 000"></div></div><div class="form-grid"><div class="field"><label>PICK-UP DATE</label><input type="date" name="date" required id="pickupDate"></div><div class="field"><label>PICK-UP TIME</label><select name="time" required><option value="">Choose time</option><option>9:00 am</option><option>10:00 am</option><option>11:00 am</option><option>12:00 pm</option><option>1:00 pm</option><option>2:00 pm</option><option>3:00 pm</option></select></div></div><button class="btn" style="width:100%" type="submit">Place pick-up order</button></form>`;}
+    function placeOrder(e){e.preventDefault();const f=new FormData(e.target);const items=Object.entries(cart).map(([id,q])=>({id,name:products.find(p=>p.id===id).name,quantity:q,price:products.find(p=>p.id===id).price}));const total=items.reduce((s,x)=>s+x.price*x.quantity,0);const order={ref:'CC-'+Math.floor(100000+Math.random()*900000),name:f.get('name'),email:f.get('email'),phone:f.get('phone'),date:f.get('date'),time:f.get('time'),items,total,status:'Received',created:new Date().toISOString()};orders.unshift(order);saveOrders();cart={};updateCart();closeCart();renderAdmin();document.getElementById('trackRef').value=order.ref;document.getElementById('trackResult').innerHTML=trackingCard(order);document.getElementById('track').scrollIntoView({behavior:'smooth'});toast('Order placed! Your reference is '+order.ref);}
+    function openCart(){document.getElementById('cartOverlay').classList.add('open');updateCart();} function closeCart(){document.getElementById('cartOverlay').classList.remove('open');}
+    function openTrack(){document.getElementById('trackOverlay').classList.add('open');} function closeTrack(){document.getElementById('trackOverlay').classList.remove('open');}
+    function overlayClose(e,id){if(e.target.id===id)document.getElementById(id).classList.remove('open');}
+    function trackingCard(o){const states=['Received','Preparing','Ready for pickup','Collected'];const idx=states.indexOf(o.status);return `<div class="tracking-result"><div style="display:flex;justify-content:space-between;gap:10px"><strong>${o.ref}</strong><span class="status">${o.status}</span></div><p style="font-size:13px;color:var(--muted);margin:10px 0 0">Pick-up: ${o.date} at ${o.time}</p><div class="steps">${states.map((s,i)=>`<div class="step ${i<=idx?'done':''}" title="${s}"></div>`).join('')}</div><p style="font-size:12px;color:var(--muted);margin:9px 0 0">${o.items.map(i=>`${i.quantity} × ${i.name}`).join(', ')} · ${money(o.total)}</p></div>`;}
+    function trackOrder(){const ref=document.getElementById('trackRef').value.trim().toUpperCase();const o=orders.find(x=>x.ref===ref);document.getElementById('trackResult').innerHTML=o?trackingCard(o):'<div class="notice">We could not find that order. Please check your reference number.</div>';}
+    function trackOrderDrawer(){const ref=document.getElementById('trackRefDrawer').value.trim().toUpperCase();const o=orders.find(x=>x.ref===ref);document.getElementById('trackResultDrawer').innerHTML=o?trackingCard(o):'<div class="notice">We could not find that order. Please check your reference number.</div>';}
+    function renderAdmin(){const body=document.getElementById('orderRows');if(!body)return;document.getElementById('adminEmpty').style.display=orders.length?'none':'block';body.innerHTML=orders.map(o=>`<tr><td><strong>${o.ref}</strong></td><td>${escapeHtml(o.name)}</td><td>${o.items.map(i=>`${i.quantity}× ${i.name}`).join(', ')}</td><td>${money(o.total)}</td><td>${o.date}<br>${o.time}</td><td><span class="status">${o.status}</span></td><td><select aria-label="Update ${o.ref}" onchange="updateStatus('${o.ref}',this.value)">${['Received','Preparing','Ready for pickup','Collected'].map(s=>`<option ${o.status===s?'selected':''}>${s}</option>`).join('')}</select></td></tr>`).join('');}
+    function updateStatus(ref,status){const o=orders.find(x=>x.ref===ref);if(o){o.status=status;saveOrders();renderAdmin();toast('Order status updated');}}
+    function exportOrders(){if(!orders.length){toast('There are no orders to export');return;}const rows=[['Reference','Customer','Email','Phone','Items','Total AUD','Pick-up date','Pick-up time','Status'],...orders.map(o=>[o.ref,o.name,o.email,o.phone,o.items.map(i=>`${i.quantity} x ${i.name}`).join('; '),o.total,o.date,o.time,o.status])];const csv=rows.map(r=>r.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='crumb-co-orders.csv';a.click();URL.revokeObjectURL(a.href);}
+    function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+    let toastTimer;function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2800);}
+    // Demo-only admin view: open with #admin in the page URL. No real authentication is implemented yet.
+    if(location.hash==='#admin'){document.getElementById('admin').classList.add('show');renderAdmin();}
+    renderProducts();updateCart();
+  </script>
+</body>
+</html>
